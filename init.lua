@@ -10,44 +10,47 @@ vim.opt.clipboard = "unnamedplus"
 
 -- Leader key
 vim.g.mapleader = " "
--- spawn windows
-vim.keymap.set("n", "<M-m>", vim.cmd.split, { desc = "split new window" } )
+-- window management
+vim.keymap.set("n", "<M-q>", vim.cmd.q, { desc = "Quit current window" })
+vim.keymap.set("n", "<M-m>", function()
+  vim.cmd("belowright split")
+end, { desc = "split new window" } )
 vim.keymap.set("n", "<M-n>", function()
-	vim.cmd.split()
+  vim.cmd("belowright vsplit")
+end, { desc = "vsplit new window" } )
+vim.keymap.set("n", "<C-M-m>", function()
+  vim.cmd("belowright split")
 	vim.cmd.terminal()
-	vim.cmd.startinsert()
 end, { desc = "split new terminal" } )
-vim.keymap.set("n", "<C-M-m>", vim.cmd.vsplit, { desc = "vsplit new window" } )
 vim.keymap.set("n", "<C-M-n>", function()
-	vim.cmd.vsplit()
+  vim.cmd("belowright vsplit")
 	vim.cmd.terminal()
-	vim.cmd.startinsert()
 end, { desc = "split new terminal" } )
 -- Move between windows
 vim.keymap.set("n", "<M-h>", [[<C-w>h]])
 vim.keymap.set("n", "<M-j>", [[<C-w>j]])
 vim.keymap.set("n", "<M-k>", [[<C-w>k]])
 vim.keymap.set("n", "<M-l>", [[<C-w>l]])
--- Move windows
-vim.keymap.set("n", "<C-M-H>", [[<C-w>H]])
-vim.keymap.set("n", "<C-M-J>", [[<C-w>J]])
-vim.keymap.set("n", "<C-M-K>", [[<C-w>K]])
-vim.keymap.set("n", "<C-M-L>", [[<C-w>L]])
 -- Move between windows while in terminal
-vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]])
-vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]])
-vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]])
-vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]])
+vim.keymap.set("t", "<M-h>", [[<C-\><C-n><C-w>h]])
+vim.keymap.set("t", "<M-j>", [[<C-\><C-n><C-w>j]])
+vim.keymap.set("t", "<M-k>", [[<C-\><C-n><C-w>k]])
+vim.keymap.set("t", "<M-l>", [[<C-\><C-n><C-w>l]])
+-- Move windows
+vim.keymap.set("n", "<C-M-h>", [[<C-w>H]])
+vim.keymap.set("n", "<C-M-j>", [[<C-w>J]])
+vim.keymap.set("n", "<C-M-k>", [[<C-w>K]])
+vim.keymap.set("n", "<C-M-l>", [[<C-w>L]])
 
 -- Dignostics keybindings
-vim.keymap.set("n", "<M-d>", vim.diagnostic.open_float, { desc = "show diagnostic" })
-vim.keymap.set("n", "<M-k>", function()
-  vim.diagnostic.jump({ count=1 })
-end, { desc = "next diagnostic" })
-vim.keymap.set("n", "<M-j>", function()
+vim.keymap.set("n", "<C-d>", vim.diagnostic.open_float, { desc = "show diagnostic" })
+vim.keymap.set("n", "<C-j>", function()
   vim.diagnostic.jump({ count=-1 })
 end, { desc = "prev diagnostic" })
-vim.keymap.set("n", "<M-f>", function()
+vim.keymap.set("n", "<C-k>", function()
+  vim.diagnostic.jump({ count=1 })
+end, { desc = "next diagnostic" })
+vim.keymap.set("n", "<C-f>", function()
   vim.lsp.buf.code_action( {
     context = { only = { "quickfix", "source.organizeImports" } },
     apply = true,
