@@ -44,10 +44,10 @@ vim.keymap.set("n", "<C-M-l>", [[<C-w>L]])
 
 -- Dignostics keybindings
 vim.keymap.set("n", "<C-d>", vim.diagnostic.open_float, { desc = "show diagnostic" })
-vim.keymap.set("n", "<C-j>", function()
+vim.keymap.set("n", "<C-k>", function()
   vim.diagnostic.jump({ count=-1 })
 end, { desc = "prev diagnostic" })
-vim.keymap.set("n", "<C-k>", function()
+vim.keymap.set("n", "<C-j>", function()
   vim.diagnostic.jump({ count=1 })
 end, { desc = "next diagnostic" })
 vim.keymap.set("n", "<C-f>", function()
